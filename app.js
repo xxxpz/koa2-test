@@ -34,8 +34,7 @@ app
       extension: 'ejs',
     })
   )
-  .use(router.routes())
-  .use(router.allowedMethods());
+  .use(routes.routes(), routes.allowedMethods());
 
 // logger
 app.use(async (ctx, next) => {
@@ -45,15 +44,6 @@ app.use(async (ctx, next) => {
   console.log(`${ctx.method} ${ctx.url} - $ms`);
 });
 
-router.get('/', async (ctx, next) => {
-  // ctx.body = 'Hello World'
-  ctx.state = {
-    title: 'Koa2',
-  };
-  await ctx.render('index', ctx.state);
-});
-
-routes(router);
 app.on('error', function (err, ctx) {
   console.log(err);
   logger.error('server error', err, ctx);

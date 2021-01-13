@@ -1,9 +1,10 @@
-module.exports = (router) => {
-  router.get('/welcome', async function (ctx, next) {
-    ctx.state = {
-      title: '路由测试',
-    };
+const Router = require('koa-router');
+const usersRouter = require('./users');
+const orderRouter = require('./order');
 
-    await ctx.render('welcome', { title: ctx.state });
-  });
-};
+const router = new Router();
+
+router.use(usersRouter.routes(), usersRouter.allowedMethods());
+router.use(orderRouter.routes(), orderRouter.allowedMethods());
+
+module.exports = router;

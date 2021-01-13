@@ -1,5 +1,14 @@
-module.exports =  (router) => {
-  router.get('/user', async function (ctx, next) {
-    ctx.body = 'this a users response!';
-  })
-}
+const Router = require('koa-router');
+const usersRouter = new Router({
+  prefix: '/users',
+});
+
+usersRouter.get('/', async (ctx) => {
+  ctx.state = {
+    title: 'users',
+  };
+  console.log(ctx);
+  await ctx.render('index', ctx.state);
+});
+
+module.exports = usersRouter;
